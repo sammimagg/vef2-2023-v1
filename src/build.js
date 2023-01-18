@@ -1,9 +1,9 @@
 import { mkdir, writeFile } from 'fs/promises';
 import path, { join } from 'path';
-import { calculate } from './lib/calculator.js';
-import { direxists, readFile, readFilesFromDir } from './lib/file.js';
-import { statsTemplate } from './lib/html.js';
-import { parse } from './lib/parser.js';
+//import { calculate } from './lib/calculator.js';
+//import { direxists, readFile, readFilesFromDir } from './lib/file.js';
+//import { statsTemplate } from './lib/html.js';
+//import { parse } from './lib/parser.js';
 
 const DATA_DIR = './data';
 const OUTPUT_DIR = './dist';
