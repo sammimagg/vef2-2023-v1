@@ -1,0 +1,23 @@
+{
+    "name": "vef2-2023-v1",
+    "type": "module",
+    "main": "index.js",
+    "scripts": {
+        "build": "node ./src/build.js && cpy public dist",
+        "test": "NODE_OPTIONS='--experimental-vm-modules' jest ./*.test.js",
+        "coverage": "NODE_OPTIONS='--experimental-vm-modules' jest --coverage --collectCoverageFrom=\"./src/**/*.js\"",
+        "dev": "browser-sync start --serveStatic ./dist --server --files ./public/styles.css ./dist/*.html",
+        "prettier": "prettier --write .",
+        "lint": "concurrently npm:lint:*",
+        "lint:eslint": "eslint ./src/**/*.js",
+        "lint:stylelint": "stylelint ./public/styles.css"
+    },
+    "devDependencies": {
+        "browser-sync": "^2.27.11",
+        "eslint": "^8.32.0",
+        "jest": "^29.3.1"
+    },
+    "dependencies": {
+        "prettier": "^2.8.3"
+    }
+}
