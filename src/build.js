@@ -4,6 +4,7 @@ import { direxists, readFile, readFilesFromDir } from './lib/file.js';
 import { statsTemplate } from './lib/html.js';
 import { parse } from './lib/parser.js';
 
+
 const DATA_DIR = './data';
 const OUTPUT_DIR = './dist';
 
