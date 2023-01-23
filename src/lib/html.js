@@ -9,10 +9,28 @@ function template(title, content) {
   <body>${content}</body>
 </html>`;
 }
+function index(results) {
+    const list = results
+        .map(
+            (result) => `
+  <li>
+    <a href="${result.filename}">${result.title}</a>
+    <p>${result.numbers.length} tölur</p>
+  </li>`
+        )
+        .join('\n');
 
+    return `<section>
+    <h1>Gagnavinnsla</h1>
+    <ul>${list}</ul>
+  </section>`;
+}
 
 
 
 export function statsTemplate(title, result) {
     return template(title);
+}
+export function indexTemplate(results) {
+    return template('Gagnavinnsla', index(results));
 }

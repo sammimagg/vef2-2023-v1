@@ -1,7 +1,7 @@
 import { mkdir, writeFile } from 'fs/promises';
 import path, { join } from 'path';
 import { direxists, readFile, readFilesFromDir } from './lib/file.js';
-import { statsTemplate } from './lib/html.js';
+import { indexTemplate, statsTemplate } from './lib/html.js';
 import { parse } from './lib/parser.js';
 
 
@@ -37,13 +37,13 @@ async function main() {
                 const template = statsTemplate(path.basename(file, '.csv'), result);
                 await writeFile(filepath, template, { flag: 'w+' });
             }
-            const filepath = join(OUTPUT_DIR, 'index.html');
+
         }
 
     }
+    const filepath = join(OUTPUT_DIR, 'index.html');
+    const template = indexTemplate(results);
 
-    //const template = indexTemplate(results)//;
-
-    //await writeFile(filepath, template, { flag: 'w+' });
+    await writeFile(filepath, template, { flag: 'w+' });
 }
 main().catch((err) => console.error(err));
