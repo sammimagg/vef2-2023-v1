@@ -4,41 +4,32 @@
  * @returns {number[]} Array of parsed numbers from the data, empty if no numbers
  */
 export function parse(input) {
-    if (typeof input !== 'string') {
+
+    if (typeof input !== 'string' || !input.includes("Númer;Heiti;Einingar;Kennslumisseri;Námstig;")) {
         return [];
     }
+    const result = [];
+    const array = input.split('\n');
 
-    const split = input.split('\n');
+    for (var i = 1; i < array.length; i++) {
 
-    const mapped = split
-        .map((i) => {
-            const formatted = i.replace(/\./g, '').replace(',', '.');
-            const parsed = Number.parseFloat(formatted, 10);
+        const data = array[i].split(';');
+        if (data.length === 6) {
+            const object = {
+                number: data[0],
+                title: data[1],
+                credit: data[2],
+                semester: data[3],
+                level: data[4],
+                url: data[5],
+            };
+            result.push(object)
+        }
+    }
 
-            if (
-                !Number.isNaN(parsed) &&
-                // Make sure the string and the number are the same after parsing
-                // parseFloat('1a') will return `1` but that's not valid
-                formatted === parsed.toString()
-            ) {
-                return parsed;
-            }
+    if (result.length === 0) {
+        return [];
 
-            // Is it in scientific notation? e and E are both valid
-            if (i.toLowerCase().indexOf('e') >= 0) {
-                const num = Number(i);
-
-                if (!Number.isNaN(num)) {
-                    return num;
-                }
-            }
-
-            // Is it BigInt? (The BigInt test set was missing from given data!)
-            // TODO
-
-            return null;
-        })
-        .filter(Boolean);
-
-    return mapped;
+    }
+    return result;
 }
