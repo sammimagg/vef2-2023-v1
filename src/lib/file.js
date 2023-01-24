@@ -1,5 +1,5 @@
-import { readdir, readFile as fsReadFile, stat } from 'fs/promises';
-import { join } from 'path';
+import { readdir, readFile as fsReadFile, stat } from "fs/promises";
+import { join } from "path";
 
 /**
  * Check if a directory exists.
@@ -51,7 +51,7 @@ export async function readFilesFromDir(dir) {
  * @param {object} options.encoding asdf
  * @returns {Promise<string | null>} Content of file or `null` if unable to read.
  */
-export async function readFile(file, { encoding = 'binary' } = {}) {
+export async function readFile(file, encoding) {
     try {
         const content = await fsReadFile(file);
         return content.toString(encoding);

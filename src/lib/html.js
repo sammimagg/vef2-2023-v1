@@ -10,27 +10,24 @@ function template(title, content) {
 </html>`;
 }
 function index(results) {
-    const list = results
+    const obj = {
+        title,
+        description,
+        cvs,
+    }
+    const array = Object.entries(results)
+    console.log(array)
+    const list = array
         .map(
-            (result) => `
-  <li>
-    <a href="${result.filename}">${result.title}</a>
-    <p>${result.numbers.length} tölur</p>
-  </li>`
-        )
-        .join('\n');
+            (item) => {
+                console.log(item.title)
+            })
 
-    return `<section>
-    <h1>Gagnavinnsla</h1>
-    <ul>${list}</ul>
-  </section>`;
 }
-
-
 
 export function statsTemplate(title, result) {
     return template(title);
 }
 export function indexTemplate(results) {
-    return template('Gagnavinnsla', index(results));
+    return template("Námsleið", index(results));
 }
