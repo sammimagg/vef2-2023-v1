@@ -9,25 +9,29 @@ function template(title, content) {
   <body>${content}</body>
 </html>`;
 }
-function index(results) {
-    const obj = {
-        title,
-        description,
-        cvs,
-    }
-    const array = Object.entries(results)
-    console.log(array)
-    const list = array
+function index(indexJSON, results) {
+    console.log(results)
+
+    const list = indexJSON
         .map(
-            (item) => {
-                console.log(item.title)
-            })
+            (item) => `
+            <li>
+                <a href="${item.title}">${item.title}</a>
+                <p>${item.desciption}</p>
+            </li>`
+        )
+        .join('\n');
+
+    return `<section>
+            <h1>Gagnavinnsla</h1>
+            <ul>${list}</ul>
+            </section>`;
 
 }
 
 export function statsTemplate(title, result) {
     return template(title);
 }
-export function indexTemplate(results) {
-    return template("Námsleið", index(results));
+export function indexTemplate(indexJSON, results) {
+    return template("Námsleið", index(indexJSON, results));
 }
