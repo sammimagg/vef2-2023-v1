@@ -9,29 +9,54 @@ function template(title, content) {
   <body>${content}</body>
 </html>`;
 }
-function index(indexJSON, results) {
-    console.log(results)
+function index(results) {
 
-    const list = indexJSON
+
+    const list = results
         .map(
             (item) => `
             <li>
-                <a href="${item.title}">${item.title}</a>
-                <p>${item.desciption}</p>
+                <a href="${item.filename}">${item.title}</a>
+                <p>${item.description}</p>
             </li>`
         )
         .join('\n');
-
     return `<section>
-            <h1>Gagnavinnsla</h1>
+            <h1>Námsleiðir</h1>
             <ul>${list}</ul>
             </section>`;
 
 }
 
-export function statsTemplate(title, result) {
-    return template(title);
+export function tableTemplate(title, result) {
+    const content = result.classes
+        .map(
+            (item) => `
+                        <tr>
+                            <td><a href="${item.url}">${item.number}</a></td>
+                            <td><a href="${item.url}">${item.title}</a></td>
+                            <td><a href="${item.url}">${item.credit}</a></td>
+                            <td><a href="${item.url}">${item.semester}</a></td>
+                            <td><a href="${item.url}">${item.level}</a></td>
+                        </tr>`
+
+        )
+        .join('\n');
+
+    var table = `<table>
+                    <tr>
+                        <th>Númer</th>
+                        <th>Heiti</th>
+                        <th>Einingar</th>
+                        <th>Kennslumisseri</th>
+                        <th>Námstig</th>
+                    </tr>
+                        ${content}
+                </table>`;
+
+
+    return template(title, table);
 }
-export function indexTemplate(indexJSON, results) {
-    return template("Námsleið", index(indexJSON, results));
+export function indexTemplate(results) {
+    return template("Námsleið", index(results));
 }

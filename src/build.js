@@ -1,7 +1,7 @@
 import { mkdir, writeFile } from "fs/promises";
 import path, { join } from "path";
 import { direxists, readFile, readFilesFromDir } from "./lib/file.js";
-import { indexTemplate, statsTemplate } from "./lib/html.js";
+import { indexTemplate, tableTemplate } from "./lib/html.js";
 import { parse } from "./lib/parser.js";
 
 
@@ -35,20 +35,31 @@ async function main() {
 
                 results.push(result);
                 const filepath = join(OUTPUT_DIR, filename);
-                const template = statsTemplate(path.basename(file, ".csv"), result);
+                const template = tableTemplate(path.basename(file, ".csv"), result);
                 await writeFile(filepath, template, { flag: "w+" });
             }
         }
         else if (path.basename(file).includes("index.json")) {
             const index = await readFile(file, 'utf8');
-            //indexFile = JSON.parse(index)
-            //indexFile.push(JSON.parse(index));
             indexObj = JSON.parse(index);
 
 
         }
     }
-    const template = indexTemplate(indexObj, results);
+    // Push to filtered if it has match from results(csv import), joins them to filtered
+    let filtered = [];
+    for (let i = 0; i < indexObj.length; i++) {
+        for (let j = 0; j < results.length; j++) {
+            if (indexObj[i].csv === results[j].csv) {
+                const match = Object.assign(indexObj[i], results[j])
+                filtered.push(match)
+            }
+        }
+    }
+
+
+
+    const template = indexTemplate(filtered);
     const filepath = join(OUTPUT_DIR, "index.html");
     await writeFile(filepath, template, { flag: "w+" });
 }
