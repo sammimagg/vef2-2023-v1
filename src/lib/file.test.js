@@ -1,3 +1,4 @@
+import { expect } from "@jest/globals";
 import { direxists } from "./file.js";
 it('Check if directory exists', async () => {
     const DIR = './src';

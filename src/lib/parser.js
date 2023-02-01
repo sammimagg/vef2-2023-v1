@@ -27,6 +27,9 @@ export function parse(input) {
       };
       result.push(object);
     }
+    else {
+      return false
+    }
   }
 
   //if (result.length === 0) {
