@@ -29,9 +29,9 @@ export function parse(input) {
     }
   }
 
-  if (result.length === 0) {
-    return [];
-  }
+  //if (result.length === 0) {
+  //  return [];
+  //}
   return result;
 }
 
@@ -40,10 +40,9 @@ export function parse(input) {
  * @param {*} item array to be checked
  * @returns boolean if true, every thing is correct, else false 
  */
-function validator(item) {
-  const temp = item;
-
-  if (temp.length > 6) {   // Auka dálkur ?
+export function validator(item) {
+  const temp = item
+  if (temp.length !== 6) {   // Auka dálkur ?
     return false;
   }
   if (temp[1] === '') {   // Empty title
@@ -58,7 +57,7 @@ function validator(item) {
  * @param {array} item unvalid array
  * @returns {array} temp fixed array
  */
-function fixer(item) {
+export function fixer(item) {
   const temp = item;
   // Auka dálkur ?
   if (temp.length > 6) {
@@ -83,7 +82,7 @@ function fixer(item) {
  * @param {*} item 
  * @returns temp array, fixed title at size 6
  */
-function fixTitle(item) {
+export function fixTitle(item) {
   const fix = item[1] + (item[2]);
   const temp = [item[0], fix, item[3], item[4], item[5], item[6]];
 
