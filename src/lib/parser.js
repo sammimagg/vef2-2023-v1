@@ -4,14 +4,15 @@
  * @returns {number[]} Array of parsed numbers from the data, empty if no numbers
  */
 export function parse(input) {
-  if (
-    typeof input !== "string" ||
-    !input.includes("Númer;Heiti;Einingar;Kennslumisseri;Námstig;")
-  ) {
+
+  if (typeof input !== "string" ||
+    !input.includes("Númer;Heiti;Einingar;Kennslumisseri;Námstig;")) {
     return [];
   }
   const result = [];
   const array = input.split("\n");
+
+
 
   for (var i = 1; i < array.length - 1; i++) {
     const data = array[i].split(";");
@@ -27,14 +28,8 @@ export function parse(input) {
       };
       result.push(object);
     }
-    else {
-      return false
-    }
   }
 
-  //if (result.length === 0) {
-  //  return [];
-  //}
   return result;
 }
 
@@ -44,7 +39,7 @@ export function parse(input) {
  * @returns boolean if true, every thing is correct, else false 
  */
 export function validator(item) {
-  const temp = item
+  const temp = item;
   if (temp.length !== 6) {   // Auka dálkur ?
     return false;
   }
@@ -85,7 +80,7 @@ export function fixer(item) {
  * @param {*} item 
  * @returns temp array, fixed title at size 6
  */
-export function fixTitle(item) {
+function fixTitle(item) {
   const fix = item[1] + (item[2]);
   const temp = [item[0], fix, item[3], item[4], item[5], item[6]];
 

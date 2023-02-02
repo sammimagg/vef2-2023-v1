@@ -1,4 +1,3 @@
-import { expect, it } from '@jest/globals';
 import { fixer, parse, validator } from "./parser.js";
 
 it('returns objects', () => {
@@ -18,18 +17,6 @@ it('returns empty array', () => {
     
     ;;;;;`;
     expect(parse(test)).toEqual([]);
-});
-it('returns empty array', () => {
-    const test = `Númer;Heiti;Einingar;Kennslumisseri;Námstig;
-    
-    x
-    ;
-    123
-    
-    
-    
-    ;;;;;`;
-    expect(parse(test)).toBe(false);
 });
 it('returns boolean', () => {
     const array = ['ÍSL241L', 'BA-ritgerð í íslensku', '10', 'Sumar', 'Grunnnám', 'https://ugla.hi.is/kennsluskra/?tab=nam&chapter=namskeid&id=91002920233&kennsluar=2022'];
