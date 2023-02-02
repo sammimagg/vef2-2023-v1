@@ -21,9 +21,6 @@ export async function direxists(dir) {
  * @returns {string[]} Array of files in dir with full path, empty if error or no files
  */
 export async function readFilesFromDir(dir) {
-
-
-
     let files = [];
     try {
         files = await readdir(dir);

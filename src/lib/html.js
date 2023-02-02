@@ -1,17 +1,15 @@
-function template(title, content) {
+export function template(title, content) {
     return `<!doctype html>
 <html lang="is">
-  <head>
-    <meta charset="utf-8">
-    <title>${title}</title>
-    <link rel="stylesheet" href="../public/styles.css">
-  </head>
-  <body>${content}</body>
+    <head>
+        <meta charset="utf-8">
+        <title>${title}</title>
+        <link rel="stylesheet" href="../public/styles.css">
+    </head>
+    <body>${content}</body>
 </html>`;
 }
-function index(results) {
-
-
+export function index(results) {
     const list = results
         .map(
             (item) => `
@@ -20,18 +18,19 @@ function index(results) {
                 <p>${item.description}</p>
             </li>`
         )
-        .join('\n');
+        .join("\n");
     return `<section>
             <h1>Námsleiðir</h1>
             <ul>${list}</ul>
             </section>`;
-
 }
 
 export function tableTemplate(title, result) {
-    const content = result.classes
-        .map(
-            (item) => `
+    let content = {};
+    if (Array.isArray(result.classes)) {
+        content = result.classes
+            .map(
+                (item) => `
                         <tr>
                             <td><a href="${item.url}">${item.number}</a></td>
                             <td><a href="${item.url}">${item.title}</a></td>
@@ -39,9 +38,11 @@ export function tableTemplate(title, result) {
                             <td><a href="${item.url}">${item.semester}</a></td>
                             <td><a href="${item.url}">${item.level}</a></td>
                         </tr>`
-
-        )
-        .join('\n');
+            )
+            .join("\n");
+    } else {
+        return [];
+    }
 
     var table = `<table>
                     <tr>
@@ -53,7 +54,6 @@ export function tableTemplate(title, result) {
                     </tr>
                         ${content}
                 </table>`;
-
 
     return template(title, table);
 }

@@ -8,15 +8,15 @@ import { parse } from "./lib/parser.js";
 const DATA_DIR = "./data";
 const OUTPUT_DIR = "./dist";
 
-async function main() {
+export async function main() {
     // ath ef './dist' er til
     if (!(await direxists(OUTPUT_DIR))) {
         await mkdir(OUTPUT_DIR);
     }
 
     const dataFiles = await readFilesFromDir(DATA_DIR);
-    var indexObj = [];
-    var results = [];
+    let indexObj = [];
+    let results = [];
 
     for (const file of dataFiles) {
         if (path.basename(file).includes(".csv")) {
@@ -46,6 +46,7 @@ async function main() {
 
         }
     }
+
     // Push to filtered if it has match from results(csv import), joins them to filtered
     let filtered = [];
     for (let i = 0; i < indexObj.length; i++) {
@@ -62,5 +63,6 @@ async function main() {
     const template = indexTemplate(filtered);
     const filepath = join(OUTPUT_DIR, "index.html");
     await writeFile(filepath, template, { flag: "w+" });
+    return true
 }
 main().catch((err) => console.error(err));
