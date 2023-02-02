@@ -1,5 +1,5 @@
 export function template(title, content) {
-    return `<!doctype html>
+  return `<!doctype html>
 <html lang="is">
     <head>
         <meta charset="utf-8">
@@ -10,27 +10,27 @@ export function template(title, content) {
 </html>`;
 }
 export function index(results) {
-    const list = results
-        .map(
-            (item) => `
+  const list = results
+    .map(
+      (item) => `
             <li>
                 <a href="${item.filename}">${item.title}</a>
                 <p>${item.description}</p>
             </li>`
-        )
-        .join("\n");
-    return `<section>
+    )
+    .join("\n");
+  return `<section>
             <h1>Námsleiðir</h1>
             <ul>${list}</ul>
             </section>`;
 }
 
 export function tableTemplate(title, result) {
-    let content = {};
-    if (Array.isArray(result.classes)) {
-        content = result.classes
-            .map(
-                (item) => `
+  let content = {};
+  if (Array.isArray(result.classes)) {
+    content = result.classes
+      .map(
+        (item) => `
                         <tr>
                             <td><a href="${item.url}">${item.number}</a></td>
                             <td><a href="${item.url}">${item.title}</a></td>
@@ -38,13 +38,13 @@ export function tableTemplate(title, result) {
                             <td><a href="${item.url}">${item.semester}</a></td>
                             <td><a href="${item.url}">${item.level}</a></td>
                         </tr>`
-            )
-            .join("\n");
-    } else {
-        return [];
-    }
+      )
+      .join("\n");
+  } else {
+    return [];
+  }
 
-    var table = `<table>
+  var table = `<table>
                     <tr>
                         <th>Númer</th>
                         <th>Heiti</th>
@@ -55,8 +55,8 @@ export function tableTemplate(title, result) {
                         ${content}
                 </table>`;
 
-    return template(title, table);
+  return template(title, table);
 }
 export function indexTemplate(results) {
-    return template("Námsleið", index(results));
+  return template("Námsleið", index(results));
 }

@@ -7,12 +7,12 @@ import { join } from "path";
  * @returns `true` if dir exists, `false` otherwise
  */
 export async function direxists(dir) {
-    try {
-        const info = await stat(dir);
-        return info.isDirectory();
-    } catch (e) {
-        return false;
-    }
+  try {
+    const info = await stat(dir);
+    return info.isDirectory();
+  } catch (e) {
+    return false;
+  }
 }
 
 /**
@@ -21,28 +21,28 @@ export async function direxists(dir) {
  * @returns {string[]} Array of files in dir with full path, empty if error or no files
  */
 export async function readFilesFromDir(dir) {
-    let files = [];
-    try {
-        files = await readdir(dir);
-    } catch (e) {
-        return [];
+  let files = [];
+  try {
+    files = await readdir(dir);
+  } catch (e) {
+    return [];
+  }
+
+  const mapped = files.map(async (file) => {
+    const path = join(dir, file);
+    const info = await stat(path);
+
+    if (info.isDirectory()) {
+      return null;
     }
 
-    const mapped = files.map(async (file) => {
-        const path = join(dir, file);
-        const info = await stat(path);
+    return path;
+  });
 
-        if (info.isDirectory()) {
-            return null;
-        }
+  const resolved = await Promise.all(mapped);
 
-        return path;
-    });
-
-    const resolved = await Promise.all(mapped);
-
-    // Remove any directories that will be represented by `null`
-    return resolved.filter(Boolean);
+  // Remove any directories that will be represented by `null`
+  return resolved.filter(Boolean);
 }
 
 /**
@@ -52,10 +52,10 @@ export async function readFilesFromDir(dir) {
  * @returns {Promise<string | null>} Content of file or `null` if unable to read.
  */
 export async function readFile(file, encoding) {
-    try {
-        const content = await fsReadFile(file);
-        return content.toString(encoding);
-    } catch (e) {
-        return null;
-    }
+  try {
+    const content = await fsReadFile(file);
+    return content.toString(encoding);
+  } catch (e) {
+    return null;
+  }
 }

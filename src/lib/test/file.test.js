@@ -1,4 +1,3 @@
-
 import { direxists, readFile, readFilesFromDir } from "../file.js";
 it("Check if directory exists", async () => {
   const DIR = "./src";
